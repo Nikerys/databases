@@ -8,5 +8,6 @@ var mysql = require('mysql');
 exports.connection = mysql.createConnection({
   user: 'root',
   password: 'plantlife',
-  database: 'chat'
+  database: 'chat',
+  multipleStatements: true
 });
