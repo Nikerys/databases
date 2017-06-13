@@ -79,7 +79,6 @@ module.exports = {
     // Ditto as above.
     get: function () {},
     post: function (callback) {
-      console.log('got post')
       callback();
     }
   }
