@@ -55,13 +55,13 @@ describe('Persistent Node Chat Server', function() {
       }, function () {
         // Now if we look in the database, we should find the
         // posted message there.
-
         // TODO: You might have to change this test to get all the data from
         // your message table, since this is schema-dependent.
         var queryString = 'SELECT * FROM messages';
         var queryArgs = [];
         dbConnection.query(queryString, function(err, results) {
           // Should have one result:
+          console.log(results);
           expect(results.length).to.equal(1);
           // TODO: If you don't have a column named text, change this test.
           expect(results[0].text).to.equal('In mercy\'s name, three days is all I need.');
@@ -79,7 +79,7 @@ describe('Persistent Node Chat Server', function() {
       values('main');
       insert into usernames (username)
       values('Valjean');
-      insert into messages (usernameID, roomID, text)
+      insert into messages (usernameUid, roomRid, text)
       values (1, 1, 'Men like you can never change!');`;
     var queryArgs = [];
     // TODO - The exact query string and query args to use
@@ -94,7 +94,7 @@ describe('Persistent Node Chat Server', function() {
       request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
         var messageLog = JSON.parse(body);
         expect(messageLog.results[0].text).to.equal('Men like you can never change!');
-        expect(messageLog.results[0].roomname).to.equal('main');
+        expect(messageLog.results[0].room.roomname).to.equal('main');
         done();
       });
     });
